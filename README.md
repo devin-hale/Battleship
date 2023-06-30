@@ -1,2 +1,2 @@
 # Battleship
-Implementation of the battleship game using test driven development.
+Implementation of the board game "Battleship" using test driven development.
