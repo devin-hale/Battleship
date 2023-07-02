@@ -6,7 +6,7 @@ Implementation of the board game "Battleship" using test driven development.
 
 Largely going to go off of the Odin Project requirements, and craft my plan of attack.  There are no explicit explanation of the game rules, so I'm going to go off of the standard rules of the board game (https://www.hasbro.com/common/instruct/battleship.pdf).
 
-TOP Lists the ship as the first portion to work on, but my initial brainstorming feels like approaching it from the gameboard first will be better.  We'll see if this was a mistake.
+TOP Lists the ship as the first portion to work on, but my initial brainstorming feels like approaching it from the gameboard first will be better.  We'll see if this was a mistake.  I plan to create each test using the features described in this planning document.
 
 ### Gameboard
 
@@ -33,3 +33,29 @@ The gameboard is a class.  It contains an array of objects, each representing a 
         - If occupied, toggle hit from null to true.
             - Send hit function to ship linked to square.
         - If empty, toggle hit from null to false.
+
+
+### Ship
+Okay it kind of makes sense after planning the gameboard why the ship needed to be made first, but planning out the gameboard helped me figure out what I needed from the ship, so it worked out.
+
+#### Ship class
+- Constructor with the following properties:
+    - Length : int, max is 5
+    - Orientation : 0 = up, 1 = east, 2 = south, 3 = west, null by default
+    - Hits : int, 0 by default.
+    - shipID: unique int
+
+#### Ship Methods
+- Hit function.  Increases 'Hits' value.
+- isSunk : compares 'Hits' to 'Length'.  If they match, return true.  If not, return false.
+- changeOrientation : changes the orientation of the ship.  Will only be used in the placement phase.
+
+
+### Player
+
+#### Player class
+- Constructor
+    - ships: [];
+    - 
+
+
