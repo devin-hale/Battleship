@@ -56,6 +56,15 @@ Okay it kind of makes sense after planning the gameboard why the ship needed to 
 #### Player class
 - Constructor
     - ships: [];
-    - 
+    - win: boolean;
+
+#### Player methods
+
+- takeTurn
+    - receives coordinate (0-99).  calls receiveHit on gameboard with said coordinate.
+
+- takeTurnAI
+    - find random legal move, take it.
+    - will expand with actual strategy later?
 
 
