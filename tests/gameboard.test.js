@@ -183,3 +183,22 @@ describe("Toggle Reveal Status", () => {
     expect(testBoard.board[0].revealed).toBeFalsy();
   });
 });
+
+describe("Receieve Hit", () => {
+  test("Apply hit to an unsunk ship.", () => {
+    let testBoard = gameboard("John");
+    //fake ship
+    let ship0 = {
+      length: 5,
+      orientation: 1,
+      isPlaced: false,
+      shipID: 1,
+      isSunk: false,
+      hits: 0,
+    };
+
+    testBoard.placeShip(ship0, 0);
+    testBoard.receiveHit(0);
+    expect(testBoard.board[0].shipLink.hits).toEqual(1);
+  });
+});

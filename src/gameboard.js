@@ -120,6 +120,32 @@ const gameboard = (player) => {
     return;
   };
 
+  const receiveHit = (coord) => {
+    // Reveal coord.
+    revealToggle(coord);
+    // Coordinate must be occupied.
+    if (board[coord].occupied) {
+      //Coordinate must not be sunk.
+      if (!isSunk(coord)) {
+        //grabs Targeted Ship ID
+        const targetID = board[coord].shipLink.shipID;
+        // Grabs all coordinates containing a ship that also matches the target ship ID.
+        const allShipTiles = board.filter(
+          (obj) => obj.occupied === true && obj.shipLink.shipID === targetID
+        );
+        // Adds a hit to each coordinate of said ship.
+        allShipTiles.forEach((el) => el.shipLink.hits++);
+
+        // If hits on the ship equals the length, set all corresponding ship tiles isSunk value to true;
+        if (board[coord].shipLink.hits === board[coord].shipLink.length)
+          allShipTiles.forEach((el) => (el.shipLink.isSunk = true));
+        return;
+      }
+      return "Ship is already sunk.";
+    }
+    return "Miss!";
+  };
+
   return {
     owner,
     board,
@@ -128,6 +154,7 @@ const gameboard = (player) => {
     isSunk,
     allSunk,
     revealToggle,
+    receiveHit,
   };
 };
 
