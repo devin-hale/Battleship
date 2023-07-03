@@ -169,3 +169,17 @@ describe("Sunk Status Checker", () => {
     expect(testBoard.allSunk()).toBeTruthy();
   });
 });
+
+describe("Toggle Reveal Status", () => {
+  let testBoard = gameboard("John");
+
+  test("Toggle On", () => {
+    testBoard.revealToggle(0);
+    expect(testBoard.board[0].revealed).toBeTruthy();
+  });
+
+  test("Toggle On", () => {
+    testBoard.revealToggle(0);
+    expect(testBoard.board[0].revealed).toBeFalsy();
+  });
+});

@@ -113,7 +113,22 @@ const gameboard = (player) => {
     return matchIndicator == 0 ? true : false;
   };
 
-  return { owner, board, placementCheck, placeShip, isSunk, allSunk };
+  const revealToggle = (coord) => {
+    board[coord].revealed
+      ? (board[coord].revealed = false)
+      : (board[coord].revealed = true);
+    return;
+  };
+
+  return {
+    owner,
+    board,
+    placementCheck,
+    placeShip,
+    isSunk,
+    allSunk,
+    revealToggle,
+  };
 };
 
 export default gameboard;
