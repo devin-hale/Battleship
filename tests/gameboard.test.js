@@ -1,41 +1,65 @@
 import gameboard from "../src/gameboard";
 
 //Initialize
-const testBoard = gameboard('John');
+const testBoard = gameboard("John");
 
+describe("Gameboard Properties", () => {
+  test("Owner", () => {
+    expect(testBoard.owner).toBe("John");
+  });
 
-describe('Gameboard Properties', () => {
+  test("Initial", () => {
+    expect(testBoard.board[2].squareID).toEqual(2);
+    expect(testBoard.board[99].occupied).toEqual(false);
+    expect(testBoard.board[0].revealed).toEqual(false);
+    expect(testBoard.board[45].hitMiss).toEqual(null);
+    expect(testBoard.board[1].shipLink).toEqual(null);
+  });
+});
 
-    test('Owner', () => {
-        expect(testBoard.owner).toBe('John');
-    });
-    
-    
-    test('Initial', () => {
-        expect(testBoard.board[2].squareID).toEqual(2);
-        expect(testBoard.board[99].occupied).toEqual(false);
-        expect(testBoard.board[0].revealed).toEqual(false);
-        expect(testBoard.board[45].hitMiss).toEqual(null);
-        expect(testBoard.board[1].shipLink).toEqual(null);
-    });
-    
-})
+describe("Ship Placement Method", () => {
+  //fake ship
+  let ship = { length: 5, orientation: null };
 
-describe('Ship Placement Method', () => {
+  test("Valid ship placement pointing up.", () => {
+    ship.orientation = 0;
+    expect(testBoard.placementCheck(ship, 40)).toBeTruthy();
+  });
 
-    //fake ship
-    let ship = {length: 5, orientation: null}
+  test("Invalid ship placement pointing up.", () => {
+    ship.orientation = 0;
+    expect(testBoard.placementCheck(ship, 30)).toBeFalsy();
+  });
 
-    test('Place valid vertical.', () => {
-        ship.orientation = 2;
-        expect(testBoard.placementCheck(ship, 0)).toBeTruthy();
+  test("Valid ship placement pointing right.", () => {
+    ship.orientation = 1;
+    expect(testBoard.placementCheck(ship, 5)).toBeTruthy();
+  });
 
-    })
+  test("Invalid ship placement pointing right.", () => {
+    ship.orientation = 1;
+    expect(testBoard.placementCheck(ship, 6)).toBeFalsy();
+  });
 
-    test('Place invalid vertical.', () => {
-        ship.orientation = 0;
-        expect(testBoard.placementCheck(ship, 0)).toBeFalsy();
-    })
+  test("Valid ship placement pointing down.", () => {
+    ship.orientation = 2;
+    expect(testBoard.placementCheck(ship, 50)).toBeTruthy();
+  });
 
+  test("Invalid ship placement pointing down.", () => {
+    ship.orientation = 2;
+    expect(testBoard.placementCheck(ship, 90)).toBeFalsy();
+  });
 
-})
+  test("Valid ship placement pointing left.", () => {
+    ship.orientation = 3;
+    expect(testBoard.placementCheck(ship, 4)).toBeTruthy();
+  });
+
+  test("Invalid ship placement pointing left.", () => {
+    ship.orientation = 3;
+    expect(testBoard.placementCheck(ship, 3)).toBeFalsy();
+  });
+});
+
+// 0,1,2,3,4,5,6,7,8,9
