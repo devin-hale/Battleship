@@ -2,6 +2,10 @@
 
 Implementation of the board game "Battleship" using test driven development.
 
+## NEED TO DO
+
+- Make placement check take into account other ships.
+
 ## Planning
 
 Largely going to go off of the Odin Project requirements, and craft my plan of attack. There are no explicit explanation of the game rules, so I'm going to go off of the standard rules of the board game (https://www.hasbro.com/common/instruct/battleship.pdf).
