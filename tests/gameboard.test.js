@@ -1,14 +1,13 @@
 import gameboard from "../src/gameboard";
 
-//Initialize
-const testBoard = gameboard("John");
-
 describe("Gameboard Properties", () => {
   test("Owner", () => {
+    let testBoard = gameboard("John");
     expect(testBoard.owner).toBe("John");
   });
 
   test("Initial", () => {
+    let testBoard = gameboard("John");
     expect(testBoard.board[2].squareID).toEqual(2);
     expect(testBoard.board[99].occupied).toEqual(false);
     expect(testBoard.board[0].revealed).toEqual(false);
@@ -17,7 +16,8 @@ describe("Gameboard Properties", () => {
   });
 });
 
-describe("Ship Placement Method", () => {
+describe("Ship Placement Validity Method", () => {
+  let testBoard = gameboard("John");
   //fake ship
   let ship = { length: 5, orientation: null };
 
@@ -62,4 +62,110 @@ describe("Ship Placement Method", () => {
   });
 });
 
-// 0,1,2,3,4,5,6,7,8,9
+describe("Ship Placement Method", () => {
+  let testBoard = gameboard("John");
+  //fake ships
+  let ship = {
+    length: 5,
+    orientation: null,
+    isPlaced: false,
+    shipID: 1,
+    sunk: false,
+  };
+  let ship2 = {
+    length: 5,
+    orientation: null,
+    isPlaced: false,
+    shipID: 2,
+    sunk: false,
+  };
+  let ship3 = {
+    length: 5,
+    orientation: null,
+    isPlaced: false,
+    shipID: 0,
+    sunk: false,
+  };
+  //Fake player.
+  let player1 = { name: "Bobby", ships: [ship] };
+
+  test("Place ship at a valid coordinate.  Check shipLink properties of all coordinates for match.", () => {
+    ship.orientation = 0;
+    testBoard.placeShip(ship, 50);
+    expect(testBoard.board[50].shipLink).toBe(ship);
+    expect(testBoard.board[40].shipLink).toBe(ship);
+    expect(testBoard.board[30].shipLink).toBe(ship);
+    expect(testBoard.board[20].shipLink).toBe(ship);
+    expect(testBoard.board[10].shipLink).toBe(ship);
+  });
+
+  test("Place ship at an invalid coordinate. ", () => {
+    ship.orientation = 0;
+    expect(testBoard.placeShip(ship, 30)).toBe("Invalid Placement");
+  });
+});
+
+describe("Sunk Status Checker", () => {
+  //fake ships
+  let ship0 = {
+    length: 5,
+    orientation: null,
+    isPlaced: false,
+    shipID: 1,
+    isSunk: false,
+  };
+  let ship1 = {
+    length: 5,
+    orientation: null,
+    isPlaced: false,
+    shipID: 2,
+    isSunk: false,
+  };
+  let ship2 = {
+    length: 5,
+    orientation: null,
+    isPlaced: false,
+    shipID: 0,
+    isSunk: false,
+  };
+  //Fake player.
+  let player1 = { name: "Bobby", ships: [ship0, ship1, ship2] };
+
+  test("Sunk Ship", () => {
+    let testBoard = gameboard("John");
+    ship0.orientation = 1;
+    testBoard.placeShip(ship0, 0);
+    testBoard.board[0].isSunk = true;
+    expect(testBoard.isSunk(0)).toBeTruthy;
+  });
+
+  test("Un-Sunk Ship", () => {
+    let testBoard = gameboard("John");
+    ship0.orientation = 1;
+    testBoard.placeShip(ship0, 0);
+    expect(testBoard.isSunk(0)).toBeFalsy;
+  });
+
+  test("No ships found.", () => {
+    let testBoard = gameboard("John");
+    expect(testBoard.isSunk(0)).toBe("No ship found at coordinate.");
+  });
+
+  test("All Sunk Ships - True", () => {
+    let testBoard = gameboard("John");
+    ship0.orientation = 1;
+    ship0.length = 1;
+    ship1.orientation = 1;
+    ship1.length = 1;
+    ship2.orientation = 1;
+    ship2.length = 1;
+    testBoard.placeShip(ship0, 0);
+    testBoard.board[0].isSunk = true;
+    testBoard.placeShip(ship0, 50);
+    testBoard.board[50].isSunk = true;
+    testBoard.placeShip(ship0, 90);
+    testBoard.board[90].isSunk = true;
+
+    expect(testBoard.allSunk()).toBeTruthy();
+  });
+});

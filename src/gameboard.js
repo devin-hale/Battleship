@@ -39,7 +39,81 @@ const gameboard = (player) => {
     }
   };
 
-  return { owner, board, placementCheck };
+  const placeShip = (ship, coord) => {
+    // Checks if ship placement is valid based on ship orientation.
+    if (placementCheck(ship, coord)) {
+      switch (ship.orientation) {
+        //Up
+        case 0:
+          //Loops through all squares the ship will occupy, changing their occupied property to true, and adding the ship to their shipLink property.
+          for (let i = 0; i < ship.length; i++) {
+            board[coord - i * 10].occupied = true;
+            board[coord - i * 10].shipLink = ship;
+          }
+          return;
+        //Right
+        case 1:
+          //Loops through all squares the ship will occupy, changing their occupied property to true, and adding the ship to their shipLink property.
+          for (let i = 0; i < ship.length; i++) {
+            board[coord + i].occupied = true;
+            board[coord + i].shipLink = ship;
+          }
+          return;
+        //Down
+        case 2:
+          //Loops through all squares the ship will occupy, changing their occupied property to true, and adding the ship to their shipLink property.
+          for (let i = 0; i < ship.length; i++) {
+            board[coord + i * 10].occupied = true;
+            board[coord + i * 10].shipLink = ship;
+          }
+          return;
+        //Left
+        case 3:
+          //Loops through all squares the ship will occupy, changing their occupied property to true, and adding the ship to their shipLink property.
+          for (let i = 0; i < ship.length; i++) {
+            board[coord - i].occupied = true;
+            board[coord - i].shipLink = ship;
+          }
+          return;
+      }
+    }
+    //Returns Invalid Placement if placement is found to be invalid.
+    return "Invalid Placement";
+  };
+
+  const isSunk = (coord) => {
+    if (board[coord].occupied) {
+      board[coord].isSunk ? true : false;
+    }
+    return "No ship found at coordinate.";
+  };
+
+  const allSunk = () => {
+    // Pulls all coordinates that are occupied.
+    const allShipTiles = board.filter((obj) => obj.occupied === true);
+    // Declare new ship array.
+    let allShips = [];
+    //Loop through allShipTiles, push to allShips.  Ignore if it already exists in allShips.
+    allShipTiles.forEach((shipTile) => {
+      if (!allShips.includes(shipTile)) {
+        allShips.push(shipTile);
+      }
+    });
+
+    console.log(allShipTiles);
+
+    let matchIndicator = 0;
+
+    allShips.forEach((ship) => {
+      if (!ship.isSunk) {
+        matchIndicator++;
+      }
+    });
+
+    return matchIndicator == 0 ? true : false;
+  };
+
+  return { owner, board, placementCheck, placeShip, isSunk, allSunk };
 };
 
 export default gameboard;
