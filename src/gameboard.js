@@ -22,16 +22,16 @@ const gameboard = (player) => {
       case 0:
         //Loops through all possible square occupations, checks if they are occupied.
         for (let i = 0; i < ship.length; i++) {
-          if ((coord - i * 10) < 0) return false
-          if (board[coord - i * 10].occupied) return false
+          if (coord - i * 10 < 0) return false;
+          if (board[coord - i * 10].occupied) return false;
         }
         return coord - (ship.length - 1) * 10 >= 0 ? true : false;
       //Ship points right >>
       case 1:
         //Loops through all possible square occupations, checks if they are occupied.
         for (let i = 0; i < ship.length; i++) {
-          if ((coord + i) > 99) return false
-          if (board[coord + i].occupied) return false
+          if (coord + i > 99) return false;
+          if (board[coord + i].occupied) return false;
         }
         return Math.floor((coord + (ship.length - 1)) / 10) ===
           Math.floor(coord / 10)
@@ -41,7 +41,7 @@ const gameboard = (player) => {
       case 2:
         //Loops through all possible square occupations, checks if they are occupied.
         for (let i = 0; i < ship.length; i++) {
-          if ((coord + i * 10) > 99) return false;
+          if (coord + i * 10 > 99) return false;
           if (board[coord + i * 10].occupied) return false;
         }
         return coord + (ship.length - 1) * 10 < 100 ? true : false;
@@ -49,8 +49,8 @@ const gameboard = (player) => {
       case 3:
         //Loops through all possible square occupations, checks if they are occupied.
         for (let i = 0; i < ship.length; i++) {
-          if ((coord - i) < 0) return false
-          if (board[coord - i].occupied) return false
+          if (coord - i < 0) return false;
+          if (board[coord - i].occupied) return false;
         }
         return Math.floor((coord - (ship.length - 1)) / 10) ===
           Math.floor(coord / 10)
@@ -60,7 +60,6 @@ const gameboard = (player) => {
   };
 
   const placeShip = (ship, coord) => {
-
     // Checks if ship placement is valid based on ship orientation.
     if (placementCheck(ship, coord)) {
       switch (ship.orientation) {
@@ -141,7 +140,8 @@ const gameboard = (player) => {
   };
 
   const receiveHit = (coord) => {
-    if (board[coord].revealed) return "You've already attacked this coordinate."
+    if (board[coord].revealed)
+      return "You've already attacked this coordinate.";
     // Reveal coord.
     revealToggle(coord);
     // Coordinate must be occupied.
@@ -157,12 +157,12 @@ const gameboard = (player) => {
 
         // Adds a hit to each coordinate of said ship.
         board[coord].shipLink.hits++;
-        
+
         // If hits on the ship equals the length, set all corresponding ship tiles isSunk value to true;
         if (board[coord].shipLink.hits == board[coord].shipLink.length) {
           board[coord].shipLink.isSunk = true;
         }
-        return;
+        return "Hit!";
       }
       return "Ship is already sunk.";
     }
