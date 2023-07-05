@@ -23,6 +23,12 @@ describe("Test player methods.", () => {
     newPlayer.takeTurn(testBoard, 0);
     expect(testBoard.board[0].shipLink.hits).toBe(1);
   });
+
+  test("AI Turn", () => {
+    let aiPlayer = player();
+
+    expect(aiPlayer.aiTurn(testBoard)).toBe("Turn Complete.");
+  });
 });
 
 /*

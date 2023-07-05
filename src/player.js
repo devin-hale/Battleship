@@ -23,10 +23,22 @@ const player = () => {
     board.receiveHit(coord);
   };
 
+  const aiTurn = (board) => {
+    let turnComplete = false;
+    while (!turnComplete) {
+      let randomCoord = Math.floor(Math.random() * 99);
+      if (!board.board[randomCoord].revealed) {
+        board.receiveHit(randomCoord);
+        return "Turn Complete.";
+      }
+    }
+  };
+
   return {
     ships,
     gameboard,
     takeTurn,
+    aiTurn,
   };
 };
 
