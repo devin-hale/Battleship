@@ -19,7 +19,13 @@ describe("Gameboard Properties", () => {
 describe("Ship Placement Validity Method", () => {
   let testBoard = gameboard("John");
   //fake ship
-  let ship = { length: 5, orientation: null };
+  let ship = {
+    length: 5,
+    orientation: null,
+    isPlaced: false,
+    shipID: 1,
+    sunk: false,
+  };
 
   test("Valid ship placement pointing up.", () => {
     ship.orientation = 0;
@@ -103,6 +109,14 @@ describe("Ship Placement Method", () => {
     ship.orientation = 0;
     expect(testBoard.placeShip(ship, 30)).toBe("Invalid Placement");
   });
+
+  test("Place ship in such a way that overlaps with already occupied coordinates.", () => {
+    ship.orientation = 0;
+    testBoard.placeShip(ship, 65);
+    testBoard.placeShip(ship, 65);
+    expect(testBoard.placeShip(ship, 65)).toBe("Invalid Placement");
+  })
+
 });
 
 describe("Sunk Status Checker", () => {

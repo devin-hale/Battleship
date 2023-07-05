@@ -20,18 +20,38 @@ const gameboard = (player) => {
     switch (ship.orientation) {
       //Ship points up ^^.
       case 0:
+        //Loops through all possible square occupations, checks if they are occupied.
+        for (let i = 0; i < ship.length; i++) {
+          if ((coord - i * 10) < 0) return false
+          if (board[coord - i * 10].occupied) return false
+        }
         return coord - (ship.length - 1) * 10 >= 0 ? true : false;
       //Ship points right >>
       case 1:
+        //Loops through all possible square occupations, checks if they are occupied.
+        for (let i = 0; i < ship.length; i++) {
+          if ((coord + i) > 99) return false
+          if (board[coord + i].occupied) return false
+        }
         return Math.floor((coord + (ship.length - 1)) / 10) ===
           Math.floor(coord / 10)
           ? true
           : false;
       //Ship points down VV.
       case 2:
+        //Loops through all possible square occupations, checks if they are occupied.
+        for (let i = 0; i < ship.length; i++) {
+          if ((coord + i * 10) > 99) return false;
+          if (board[coord + i * 10].occupied) return false;
+        }
         return coord + (ship.length - 1) * 10 < 100 ? true : false;
       //Ship points left <<.
       case 3:
+        //Loops through all possible square occupations, checks if they are occupied.
+        for (let i = 0; i < ship.length; i++) {
+          if ((coord - i) < 0) return false
+          if (board[coord - i].occupied) return false
+        }
         return Math.floor((coord - (ship.length - 1)) / 10) ===
           Math.floor(coord / 10)
           ? true
