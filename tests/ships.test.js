@@ -18,3 +18,19 @@ describe('Tests ship properties.', () => {
     })
 
 })
+
+describe('Test ship methods.', () => {
+    let testShip;
+
+    test('Add hit.', () => {
+        testShip = ship(5);
+        testShip.shipHit();
+        expect(testShip.hits).toBe(1);
+    })
+
+    test('Change orientation.', () => {
+        testShip = ship(5);
+        testShip.changeOrientation(1);
+        expect(testShip.orientation).toBe(1);
+    })
+})
