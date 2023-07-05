@@ -136,14 +136,14 @@ describe("Sunk Status Checker", () => {
     ship0.orientation = 1;
     testBoard.placeShip(ship0, 0);
     testBoard.board[0].isSunk = true;
-    expect(testBoard.isSunk(0)).toBeTruthy;
+    expect(testBoard.isSunk(0)).toBeTruthy();
   });
 
   test("Un-Sunk Ship", () => {
     let testBoard = gameboard("John");
-    ship0.orientation = 1;
-    testBoard.placeShip(ship0, 0);
-    expect(testBoard.isSunk(0)).toBeFalsy;
+    ship2.orientation = 1;
+    testBoard.placeShip(ship2, 25);
+    expect(testBoard.isSunk(25)).toBeFalsy();
   });
 
   test("No ships found.", () => {
@@ -185,20 +185,46 @@ describe("Toggle Reveal Status", () => {
 });
 
 describe("Receieve Hit", () => {
-  test("Apply hit to an unsunk ship.", () => {
-    let testBoard = gameboard("John");
+    let testBoard1 = gameboard("John");
     //fake ship
-    let ship0 = {
+    let ship20 = {
       length: 5,
       orientation: 1,
       isPlaced: false,
-      shipID: 1,
+      shipID: 25,
       isSunk: false,
       hits: 0,
     };
 
-    testBoard.placeShip(ship0, 0);
-    testBoard.receiveHit(0);
-    expect(testBoard.board[0].shipLink.hits).toEqual(1);
+
+  test("Apply hit to an unsunk ship.", () => {
+    testBoard1.placeShip(ship20, 65);
+    testBoard1.receiveHit(65);
+    expect(testBoard1.board[65].shipLink.hits).toBe(1);
   });
+
+  test("Apply hit to sunken ship.", () => {
+    let ship22 = {
+        length: 1,
+        orientation: 1,
+        isPlaced: false,
+        shipID: 25,
+        isSunk: false,
+        hits: 0,
+      };
+    testBoard1.placeShip(ship22, 85);
+    testBoard1.receiveHit(85);
+    expect(testBoard1.board[85].shipLink.hits).toBe(1);
+    expect(testBoard1.receiveHit(85)).toBe(`You've already attacked this coordinate.`)
+
+  })
+
+  test('Apply hit to unnocupied square.', () => {
+    expect(testBoard1.receiveHit(77)).toBe('Miss!')
+  })
+
+  test('Apply hit to previously attacked square.', () => {
+    testBoard1.receiveHit(59)
+    expect(testBoard1.receiveHit(59)).toBe(`You've already attacked this coordinate.`)
+  })
 });

@@ -40,6 +40,7 @@ const gameboard = (player) => {
   };
 
   const placeShip = (ship, coord) => {
+
     // Checks if ship placement is valid based on ship orientation.
     if (placementCheck(ship, coord)) {
       switch (ship.orientation) {
@@ -82,15 +83,16 @@ const gameboard = (player) => {
   };
 
   const isSunk = (coord) => {
-    if (board[coord].occupied) {
-      board[coord].isSunk ? true : false;
+    if (board[coord].occupied === true) {
+      if (board[coord].isSunk === true) return true;
+      else return false;
     }
     return "No ship found at coordinate.";
   };
 
   const allSunk = () => {
     // Pulls all coordinates that are occupied.
-    const allShipTiles = board.filter((obj) => obj.occupied === true);
+    let allShipTiles = board.filter((obj) => obj.occupied === true);
     // Declare new ship array.
     let allShips = [];
     //Loop through allShipTiles, push to allShips.  Ignore if it already exists in allShips.
@@ -99,8 +101,6 @@ const gameboard = (player) => {
         allShips.push(shipTile);
       }
     });
-
-    console.log(allShipTiles);
 
     let matchIndicator = 0;
 
@@ -121,24 +121,32 @@ const gameboard = (player) => {
   };
 
   const receiveHit = (coord) => {
+    if (board[coord].revealed) return "You've already attacked this coordinate."
     // Reveal coord.
     revealToggle(coord);
+    console.log('Reveal Toggle')
     // Coordinate must be occupied.
-    if (board[coord].occupied) {
+    if (board[coord].occupied === true) {
+      console.log('Coord is occupied.')
       //Coordinate must not be sunk.
-      if (!isSunk(coord)) {
+      if (board[coord].shipLink.isSunk === false) {
+        console.log('Coord is not sunk.')
         //grabs Targeted Ship ID
         const targetID = board[coord].shipLink.shipID;
         // Grabs all coordinates containing a ship that also matches the target ship ID.
         const allShipTiles = board.filter(
           (obj) => obj.occupied === true && obj.shipLink.shipID === targetID
         );
-        // Adds a hit to each coordinate of said ship.
-        allShipTiles.forEach((el) => el.shipLink.hits++);
 
+        // Adds a hit to each coordinate of said ship.
+        board[coord].shipLink.hits++;
+        
         // If hits on the ship equals the length, set all corresponding ship tiles isSunk value to true;
-        if (board[coord].shipLink.hits === board[coord].shipLink.length)
-          allShipTiles.forEach((el) => (el.shipLink.isSunk = true));
+        if (board[coord].shipLink.hits == board[coord].shipLink.length) {
+          console.log('Marked sunk.')
+          board[coord].shipLink.isSunk = true;
+          console.log(board[coord].shipLink.isSunk)
+        }
         return;
       }
       return "Ship is already sunk.";
