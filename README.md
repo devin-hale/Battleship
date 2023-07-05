@@ -4,7 +4,7 @@ Implementation of the board game "Battleship" using test driven development.
 
 ## NEED TO DO
 
-- Make placement check take into account other ships.
+
 
 ## Planning
 

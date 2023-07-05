@@ -144,13 +144,10 @@ const gameboard = (player) => {
     if (board[coord].revealed) return "You've already attacked this coordinate."
     // Reveal coord.
     revealToggle(coord);
-    console.log('Reveal Toggle')
     // Coordinate must be occupied.
     if (board[coord].occupied === true) {
-      console.log('Coord is occupied.')
       //Coordinate must not be sunk.
       if (board[coord].shipLink.isSunk === false) {
-        console.log('Coord is not sunk.')
         //grabs Targeted Ship ID
         const targetID = board[coord].shipLink.shipID;
         // Grabs all coordinates containing a ship that also matches the target ship ID.
@@ -163,9 +160,7 @@ const gameboard = (player) => {
         
         // If hits on the ship equals the length, set all corresponding ship tiles isSunk value to true;
         if (board[coord].shipLink.hits == board[coord].shipLink.length) {
-          console.log('Marked sunk.')
           board[coord].shipLink.isSunk = true;
-          console.log(board[coord].shipLink.isSunk)
         }
         return;
       }
