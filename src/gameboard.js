@@ -70,7 +70,7 @@ const gameboard = (player) => {
             board[coord - i * 10].occupied = true;
             board[coord - i * 10].shipLink = ship;
           }
-          return;
+          return "Valid";
         //Right
         case 1:
           //Loops through all squares the ship will occupy, changing their occupied property to true, and adding the ship to their shipLink property.
@@ -78,7 +78,7 @@ const gameboard = (player) => {
             board[coord + i].occupied = true;
             board[coord + i].shipLink = ship;
           }
-          return;
+          return "Valid";
         //Down
         case 2:
           //Loops through all squares the ship will occupy, changing their occupied property to true, and adding the ship to their shipLink property.
@@ -86,7 +86,7 @@ const gameboard = (player) => {
             board[coord + i * 10].occupied = true;
             board[coord + i * 10].shipLink = ship;
           }
-          return;
+          return "Valid";
         //Left
         case 3:
           //Loops through all squares the ship will occupy, changing their occupied property to true, and adding the ship to their shipLink property.
@@ -94,7 +94,7 @@ const gameboard = (player) => {
             board[coord - i].occupied = true;
             board[coord - i].shipLink = ship;
           }
-          return;
+          return "Valid";
       }
     }
     //Returns Invalid Placement if placement is found to be invalid.
