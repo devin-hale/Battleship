@@ -155,6 +155,8 @@ const gameboard = (player) => {
           (obj) => obj.occupied === true && obj.shipLink.shipID === targetID
         );
 
+        board[coord].shipLink.hitMiss = true;
+
         // Adds a hit to each coordinate of said ship.
         board[coord].shipLink.hits++;
 

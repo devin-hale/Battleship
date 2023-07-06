@@ -13,4 +13,4 @@ humanPlayer.ships[0].changeOrientation(0);
 renderAI(aiBoard);
 renderPlayer(playerBoard);
 
-playerPlacement(humanPlayer.ships[0], playerBoard);
+playerPlacement(humanPlayer.ships[0], playerBoard, aiBoard);

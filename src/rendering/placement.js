@@ -1,19 +1,21 @@
-const playerPlacement = (ship, board) => {
+import { updateBoard } from "./renderpage";
+
+const playerPlacement = (ship, playerBoard, aiBoard) => {
   let awaitPlacement = false;
 
   //Adds event listener to every square.
-  board.board.forEach(sq => {
+  playerBoard.board.forEach(sq => {
     //Gets sq div to corresponding square.
     let sqDiv = document.getElementById(`P:${sq.squareID}`);
 
     //Adds click listener to it.
     sqDiv.addEventListener('click', event => {
       //Checks if valid placement.
-      if (board.placementCheck(ship, sq.squareID)) {
+      if (playerBoard.placementCheck(ship, sq.squareID)) {
         //Places ship on board.
-        board.placeShip(ship, sq.squareID);
-        //Changes color to green.
-        sqDiv.style.backgroundColor = 'green';
+        playerBoard.placeShip(ship, sq.squareID);
+        //Just fucking deletes the entire board and re-renders it based on the updated data lmao.
+        updateBoard(aiBoard, playerBoard);
       }
     })
   })

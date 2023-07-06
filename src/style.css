@@ -44,7 +44,7 @@
     transition: .1s;
 }
 
-.coordSquare:hover {
+.coordPlayerSquare:hover {
     background-color: rgb(13, 151, 0);
     transition: .1s;
     cursor: pointer;
