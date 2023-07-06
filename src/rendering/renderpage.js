@@ -10,6 +10,11 @@ const renderAI = (board) => {
     let gameSquare = document.createElement("div");
     gameSquare.id = `AI:${square.squareID}`;
     gameSquare.classList = "coordAISquare coordSquare";
+    if (square.revealed) {
+      if (square.hitMiss) gameSquare.style.backgroundColor = "red";
+      else gameSquare.style.backgroundColor = "";
+    } else gameSquare.style.backgroundColor = "darkgrey";
+
     aiDiv.appendChild(gameSquare);
   });
 
@@ -27,9 +32,9 @@ const renderPlayer = (board) => {
     gameSquare.id = `P:${square.squareID}`;
     gameSquare.classList = "coordPlayerSquare coordSquare";
     if (square.occupied) {
-      if (!square.shipLink.isSunk) gameSquare.style.backgroundColor = 'green';
-      if (square.hitMiss) gameSquare.style.backgroundColor = 'orange';
-      if (square.shipLink.isSunk) gameSquare.style.backgroundColor = 'red';
+      if (!square.shipLink.isSunk) gameSquare.style.backgroundColor = "green";
+      if (square.hitMiss) gameSquare.style.backgroundColor = "orange";
+      if (square.shipLink.isSunk) gameSquare.style.backgroundColor = "red";
     }
     aiDiv.appendChild(gameSquare);
   });
@@ -39,11 +44,25 @@ const renderPlayer = (board) => {
 
 const updateBoard = (aiBoard, playerBoard) => {
   let gameDiv = document.getElementById("game");
-  gameDiv.innerHTML = '';
+
+  playerBoard.board.forEach((sq) => {
+    let sqDiv = document.getElementById(`P:${sq.squareID}`);
+
+    if (sq.occupied) {
+      sqDiv.style.backgroundColor = "green";
+      if (sq.hitMiss) sqDiv.style.backgroundColor = "red";
+    } else {
+      sqDiv.style.backgroundColor = "";
+    }
+  });
+};
+
+const softResetBoard = (aiBoard, playerBoard) => {
+  let gameDiv = document.getElementById("game");
+  gameDiv.innerHTML = "";
 
   renderAI(aiBoard);
   renderPlayer(playerBoard);
+};
 
-}
-
-export { renderAI, renderPlayer, updateBoard };
+export { renderAI, renderPlayer, updateBoard, softResetBoard };

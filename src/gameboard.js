@@ -62,6 +62,7 @@ const gameboard = (player) => {
   const placeShip = (ship, coord) => {
     // Checks if ship placement is valid based on ship orientation.
     if (placementCheck(ship, coord)) {
+      ship.isPlaced = true;
       switch (ship.orientation) {
         //Up
         case 0:

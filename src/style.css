@@ -44,11 +44,6 @@
     transition: .1s;
 }
 
-.coordPlayerSquare:hover {
-    background-color: rgb(13, 151, 0);
-    transition: .1s;
-    cursor: pointer;
-}
 
 #footer {
     background-color: blue;
