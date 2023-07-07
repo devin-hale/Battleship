@@ -1,4 +1,4 @@
-import { updateBoard } from "./rendering/renderpage";
+import { updateBoard, updateAIBoard } from "./rendering/renderpage";
 
 const playerTurn = (player, aiBoard, playerBoard) => {
   //Hover functionality added to each AI Div
@@ -11,7 +11,7 @@ const playerTurn = (player, aiBoard, playerBoard) => {
     });
 
     sqDiv.addEventListener("mouseout", () => {
-      updateBoard(aiBoard, playerBoard);
+      updateAIBoard(aiBoard);
     });
   });
 
@@ -20,11 +20,10 @@ const playerTurn = (player, aiBoard, playerBoard) => {
     let sqDiv = document.getElementById(`AI:${sq.squareID}`);
 
     sqDiv.addEventListener("click", () => {
-      let clickResult = aiBoard.receiveHit(sq.squareID);
-      aiBoard.receiveHit();
+      let coordinate = sq.squareID;
+      let clickResult = aiBoard.receiveHit(coordinate);
       if (clickResult != "You've already attacked this coordinate.") {
-        updateBoard(aiBoard, playerBoard);
-        console.log("Ok");
+        updateAIBoard(aiBoard);
       }
     });
   });

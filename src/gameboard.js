@@ -156,7 +156,7 @@ const gameboard = (player) => {
           (obj) => obj.occupied === true && obj.shipLink.shipID === targetID
         );
 
-        board[coord].shipLink.hitMiss = true;
+        board[coord].hitMiss = true;
 
         // Adds a hit to each coordinate of said ship.
         board[coord].shipLink.hits++;
@@ -164,11 +164,13 @@ const gameboard = (player) => {
         // If hits on the ship equals the length, set all corresponding ship tiles isSunk value to true;
         if (board[coord].shipLink.hits == board[coord].shipLink.length) {
           board[coord].shipLink.isSunk = true;
+          return "Sunk ship!";
         }
         return "Hit!";
       }
       return "Ship is already sunk.";
     }
+    board[coord].hitMiss = false;
     return "Miss!";
   };
 

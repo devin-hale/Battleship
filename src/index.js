@@ -10,6 +10,8 @@ let playerBoard = gameboard("Player");
 let humanPlayer = player("Human");
 let aiPlayer = player("AI");
 
+console.log(aiBoard.board);
+
 renderAI(aiBoard);
 renderPlayer(playerBoard);
 
