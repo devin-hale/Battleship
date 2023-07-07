@@ -1,5 +1,6 @@
 import { updateBoard, softResetBoard } from "./renderpage";
 import { playerTurn } from "../gameLoop";
+import updateMessage from "./updateMessage";
 
 //This function removes the rotation button event listener in order to update it.
 const rotationRemove = (shipPlace) => {
@@ -28,6 +29,8 @@ const playerPlacement = (
   aiPlayer
 ) => {
   let shipPlace = 0;
+
+  updateMessage(`Place your ${ships[shipPlace].type}.`);
 
   placementRotation(ships, shipPlace);
 
@@ -107,6 +110,7 @@ const playerPlacement = (
         updateBoard(aiBoard, playerBoard);
         shipPlace++;
         if (shipPlace <= 4) {
+          updateMessage(`Place your ${ships[shipPlace].type}.`);
           rotationRemove(shipPlace);
           placementRotation(ships, shipPlace);
         }

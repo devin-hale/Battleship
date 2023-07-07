@@ -11,8 +11,10 @@ const renderAI = (board) => {
     gameSquare.id = `AI:${square.squareID}`;
     gameSquare.classList = "coordAISquare coordSquare";
     if (square.revealed) {
-      if (square.hitMiss) gameSquare.style.backgroundColor = "red";
-      else gameSquare.style.backgroundColor = "";
+      if (square.hitMiss) {
+        if (square.shipLink.isSunk) gameSquare.style.backgroundColor = "red";
+        else gameSquare.style.backgroundColor = "orange";
+      } else gameSquare.style.backgroundColor = "";
     } else gameSquare.style.backgroundColor = "darkgrey";
 
     aiDiv.appendChild(gameSquare);
@@ -36,6 +38,9 @@ const renderPlayer = (board) => {
       if (square.hitMiss) gameSquare.style.backgroundColor = "orange";
       if (square.shipLink.isSunk) gameSquare.style.backgroundColor = "red";
     }
+    if (square.hitMiss == false) {
+      gameSquare.style.backroundColor = "rgba(255, 143, 143, 0.336)";
+    }
     aiDiv.appendChild(gameSquare);
   });
 
@@ -50,10 +55,11 @@ const updateBoard = (aiBoard, playerBoard) => {
 
     if (sq.occupied) {
       sqDiv.style.backgroundColor = "green";
-      if (sq.hitMiss) sqDiv.style.backgroundColor = "red";
-    } else {
-      sqDiv.style.backgroundColor = "";
-    }
+      if (sq.hitMiss) sqDiv.style.backgroundColor = "orange";
+      if (sq.shipLink.isSunk) gameSquare.style.backgroundColor = "red";
+    } else if (sq.hitMiss == false)
+      sqDiv.style.backgroundColor = "rgba(255, 143, 143, 0.336)";
+    else if (sq.hitMiss == null) sqDiv.style.backgroundColor = "";
   });
 };
 
@@ -62,8 +68,11 @@ const updateAIBoard = (aiBoard) => {
     let sqDiv = document.getElementById(`AI:${sq.squareID}`);
 
     if (sq.revealed == true) {
-      if (sq.hitMiss == true) sqDiv.style.backgroundColor = "red";
-      if (sq.hitMiss == false) sqDiv.style.backgroundColor = "";
+      if (sq.hitMiss == true) sqDiv.style.backgroundColor = "orange";
+      if (sq.occupied) {
+        if (sq.shipLink.isSunk) gameSquare.style.backgroundColor = "red";
+      }
+      if (!sq.hitMiss) sqDiv.style.backgroundColor = "";
     } else sqDiv.style.backgroundColor = "darkgrey";
   });
 };
@@ -74,6 +83,8 @@ const softResetBoard = (aiBoard, playerBoard) => {
 
   renderAI(aiBoard);
   renderPlayer(playerBoard);
+  updateBoard(aiBoard, playerBoard);
+  updateAIBoard(aiBoard);
 };
 
 export { renderAI, renderPlayer, updateBoard, updateAIBoard, softResetBoard };

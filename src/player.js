@@ -1,15 +1,20 @@
 import gameboard from "./gameboard";
 import ship from "./ships";
 
-const player = () => {
+const player = (name) => {
   let ships = [];
   let gameboard = null;
 
   let carrierShip = ship(5);
+  carrierShip.type = "Carrier";
   let battleShip = ship(4);
+  battleShip.type = "Battleship";
   let cruiserShip = ship(3);
+  cruiserShip.type = "Cruiser";
   let submarineShip = ship(3);
+  submarineShip.type = "Submarine";
   let destroyerShip = ship(2);
+  destroyerShip.type = "Destroyer";
 
   ships.push(
     carrierShip,
@@ -28,13 +33,13 @@ const player = () => {
     while (!turnComplete) {
       let randomCoord = Math.floor(Math.random() * 99);
       if (!board.board[randomCoord].revealed) {
-        board.receiveHit(randomCoord);
-        return "Turn Complete.";
+        return board.receiveHit(randomCoord);
       }
     }
   };
 
   return {
+    name,
     ships,
     gameboard,
     takeTurn,

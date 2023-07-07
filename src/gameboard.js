@@ -164,9 +164,9 @@ const gameboard = (player) => {
         // If hits on the ship equals the length, set all corresponding ship tiles isSunk value to true;
         if (board[coord].shipLink.hits == board[coord].shipLink.length) {
           board[coord].shipLink.isSunk = true;
-          return "Sunk ship!";
+          return `${owner}'s ${board[coord].shipLink.type} was sunk!`;
         }
-        return "Hit!";
+        return `Hit!`;
       }
       return "Ship is already sunk.";
     }
