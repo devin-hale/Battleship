@@ -15,5 +15,5 @@ console.log(aiBoard.board);
 renderAI(aiBoard);
 renderPlayer(playerBoard);
 
-playerPlacement(humanPlayer.ships, playerBoard, aiBoard, humanPlayer);
+playerPlacement(humanPlayer.ships, playerBoard, aiBoard, humanPlayer, aiPlayer);
 aiPlacement(aiPlayer, aiBoard);

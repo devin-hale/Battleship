@@ -1,6 +1,10 @@
-import { updateBoard, updateAIBoard } from "./rendering/renderpage";
+import {
+  updateBoard,
+  updateAIBoard,
+  softResetBoard,
+} from "./rendering/renderpage";
 
-const playerTurn = (player, aiBoard, playerBoard) => {
+const playerTurn = (player, aiBoard, playerBoard, aiPlayer) => {
   //Hover functionality added to each AI Div
   aiBoard.board.forEach((sq) => {
     let sqDiv = document.getElementById(`AI:${sq.squareID}`);
@@ -23,10 +27,19 @@ const playerTurn = (player, aiBoard, playerBoard) => {
       let coordinate = sq.squareID;
       let clickResult = aiBoard.receiveHit(coordinate);
       if (clickResult != "You've already attacked this coordinate.") {
-        updateAIBoard(aiBoard);
+        softResetBoard(aiBoard, playerBoard);
+        aiTurn(aiBoard, playerBoard, aiPlayer, player);
       }
     });
   });
+};
+
+const aiTurn = (aiBoard, playerBoard, aiPlayer, player) => {
+  setTimeout(() => {
+    aiPlayer.aiTurn(playerBoard);
+    updateBoard(aiBoard, playerBoard);
+    playerTurn(player, aiBoard, playerBoard, aiPlayer);
+  }, 1000);
 };
 
 export { playerTurn };

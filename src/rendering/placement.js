@@ -20,7 +20,13 @@ const placementRotation = (ships, shipPlace) => {
   });
 };
 
-const playerPlacement = (ships, playerBoard, aiBoard, playerPerson) => {
+const playerPlacement = (
+  ships,
+  playerBoard,
+  aiBoard,
+  playerPerson,
+  aiPlayer
+) => {
   let shipPlace = 0;
 
   placementRotation(ships, shipPlace);
@@ -112,7 +118,7 @@ const playerPlacement = (ships, playerBoard, aiBoard, playerPerson) => {
         rotationRemove(shipPlace);
         document.getElementById("rotateButton").remove();
         softResetBoard(aiBoard, playerBoard);
-        playerTurn(playerPerson, aiBoard, playerBoard);
+        playerTurn(playerPerson, aiBoard, playerBoard, aiPlayer);
       }
     });
   });
