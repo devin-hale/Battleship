@@ -14,10 +14,25 @@ const rotationRemove = (shipPlace) => {
 const placementRotation = (ships, shipPlace) => {
   let rotateButt = document.getElementById("rotateButton");
   ships[shipPlace].orientation = 0;
+  document.getElementById("placeOrient").innerHTML = `Direction: ^`;
 
   rotateButt.addEventListener("click", (event) => {
     ships[shipPlace].orientation++;
     if (ships[shipPlace].orientation > 3) ships[shipPlace].orientation = 0;
+    switch (ships[shipPlace].orientation) {
+      case 0:
+        document.getElementById("placeOrient").innerHTML = `Direction: ^`;
+        break;
+      case 1:
+        document.getElementById("placeOrient").innerHTML = `Direction: >`;
+        break;
+      case 2:
+        document.getElementById("placeOrient").innerHTML = `Direction: v`;
+        break;
+      case 3:
+        document.getElementById("placeOrient").innerHTML = `Direction: <`;
+        break;
+    }
   });
 };
 
@@ -120,7 +135,7 @@ const playerPlacement = (
     sqDiv.addEventListener("click", () => {
       if (shipPlace > 4) {
         rotationRemove(shipPlace);
-        document.getElementById("rotateButton").remove();
+        document.getElementById("placementDir").remove();
         softResetBoard(aiBoard, playerBoard);
         playerTurn(playerPerson, aiBoard, playerBoard, aiPlayer);
       }

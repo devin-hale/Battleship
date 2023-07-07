@@ -87,4 +87,30 @@ const softResetBoard = (aiBoard, playerBoard) => {
   updateAIBoard(aiBoard);
 };
 
-export { renderAI, renderPlayer, updateBoard, updateAIBoard, softResetBoard };
+const winRender = (winner) => {
+  let gameDiv = document.getElementById("game");
+
+  let winDiv = document.createElement("div");
+  winDiv.classList = "windDiv";
+
+  let winText = document.createElement("p");
+  winText.classList = "winText";
+  winText.innerHTML = `Winner: ${winner}`;
+  winDiv.appendChild(winDiv);
+
+  let resetButton = document.createElement("button");
+  resetButton.type = "button";
+  resetButton.classList = "resetButton";
+  winDiv.appendChild(resetButton);
+
+  gameDiv.appendChild(winDiv);
+};
+
+export {
+  renderAI,
+  renderPlayer,
+  updateBoard,
+  updateAIBoard,
+  softResetBoard,
+  winRender,
+};

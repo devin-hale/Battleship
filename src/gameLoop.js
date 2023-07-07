@@ -5,6 +5,12 @@ import {
 } from "./rendering/renderpage";
 import updateMessage from "./rendering/updateMessage";
 
+const checkWin = (player, aiBoard, playerBoard, aiPlayer) => {
+  if (aiBoard.allSunk()) return aiPlayer.name;
+  if (playerBoard.allSunk()) return player.name;
+  else return null;
+};
+
 const playerTurn = (player, aiBoard, playerBoard, aiPlayer) => {
   updateMessage(`${player.name} is aiming...`);
   //Hover functionality added to each AI Div
