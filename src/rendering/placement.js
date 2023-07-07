@@ -1,6 +1,6 @@
 import { updateBoard, softResetBoard } from "./renderpage";
 import { playerTurn } from "../gameLoop";
-import updateMessage from "./updateMessage";
+import { updateMessage, updateMColor } from "./updateMessage";
 
 //This function removes the rotation button event listener in order to update it.
 const rotationRemove = (shipPlace) => {
@@ -46,6 +46,7 @@ const playerPlacement = (
   let shipPlace = 0;
 
   updateMessage(`Place your ${ships[shipPlace].type}.`);
+  updateMColor("Green");
 
   placementRotation(ships, shipPlace);
 
@@ -137,7 +138,12 @@ const playerPlacement = (
         rotationRemove(shipPlace);
         document.getElementById("placementDir").remove();
         softResetBoard(aiBoard, playerBoard);
-        playerTurn(playerPerson, aiBoard, playerBoard, aiPlayer);
+        updateMessage("Get ready...");
+        updateMColor("Black");
+        console.log("Yo");
+        setTimeout(() => {
+          playerTurn(playerPerson, aiBoard, playerBoard, aiPlayer);
+        }, 2000);
       }
     });
   });

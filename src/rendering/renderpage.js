@@ -1,4 +1,6 @@
 import gameboard from "../gameboard";
+import player from "../player";
+import playerPlacement from "./placement";
 
 const renderAI = (board) => {
   let gameDiv = document.getElementById("game");
@@ -70,7 +72,7 @@ const updateAIBoard = (aiBoard) => {
     if (sq.revealed == true) {
       if (sq.hitMiss == true) sqDiv.style.backgroundColor = "orange";
       if (sq.occupied) {
-        if (sq.shipLink.isSunk) gameSquare.style.backgroundColor = "red";
+        if (sq.shipLink.isSunk) sqDiv.style.backgroundColor = "red";
       }
       if (!sq.hitMiss) sqDiv.style.backgroundColor = "";
     } else sqDiv.style.backgroundColor = "darkgrey";
@@ -87,23 +89,28 @@ const softResetBoard = (aiBoard, playerBoard) => {
   updateAIBoard(aiBoard);
 };
 
-const winRender = (winner) => {
+const winRender = (winner, aiBoard, playerBoard) => {
   let gameDiv = document.getElementById("game");
 
   let winDiv = document.createElement("div");
-  winDiv.classList = "windDiv";
+  winDiv.classList = "winDiv";
 
   let winText = document.createElement("p");
   winText.classList = "winText";
   winText.innerHTML = `Winner: ${winner}`;
-  winDiv.appendChild(winDiv);
+  winDiv.appendChild(winText);
 
   let resetButton = document.createElement("button");
   resetButton.type = "button";
+  resetButton.innerHTML = "Reset";
   resetButton.classList = "resetButton";
   winDiv.appendChild(resetButton);
 
   gameDiv.appendChild(winDiv);
+
+  resetButton.addEventListener("click", () => {
+    location.reload();
+  });
 };
 
 export {

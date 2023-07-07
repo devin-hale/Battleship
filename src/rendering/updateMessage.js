@@ -2,4 +2,8 @@ const updateMessage = (message) => {
   document.getElementById("gameMessage").innerHTML = message;
 };
 
-export default updateMessage;
+const updateMColor = (color) => {
+  document.getElementById("gameMessage").style.backgroundColor = color;
+};
+
+export { updateMessage, updateMColor };

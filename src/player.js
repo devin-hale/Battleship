@@ -33,6 +33,7 @@ const player = (name) => {
     while (!turnComplete) {
       let randomCoord = Math.floor(Math.random() * 99);
       if (!board.board[randomCoord].revealed) {
+        turnComplete = true;
         return board.receiveHit(randomCoord);
       }
     }

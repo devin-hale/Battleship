@@ -2,17 +2,19 @@ import {
   updateBoard,
   updateAIBoard,
   softResetBoard,
+  winRender,
 } from "./rendering/renderpage";
-import updateMessage from "./rendering/updateMessage";
+import { updateMessage, updateMColor } from "./rendering/updateMessage";
 
 const checkWin = (player, aiBoard, playerBoard, aiPlayer) => {
-  if (aiBoard.allSunk()) return aiPlayer.name;
-  if (playerBoard.allSunk()) return player.name;
+  if (aiBoard.allSunk()) return "You Win!";
+  if (playerBoard.allSunk()) return "AI Wins!";
   else return null;
 };
 
 const playerTurn = (player, aiBoard, playerBoard, aiPlayer) => {
-  updateMessage(`${player.name} is aiming...`);
+  updateMessage(`Select your target.`);
+  updateMColor("green");
   //Hover functionality added to each AI Div
   aiBoard.board.forEach((sq) => {
     let sqDiv = document.getElementById(`AI:${sq.squareID}`);
@@ -37,21 +39,32 @@ const playerTurn = (player, aiBoard, playerBoard, aiPlayer) => {
       if (clickResult != "You've already attacked this coordinate.") {
         softResetBoard(aiBoard, playerBoard);
         updateMessage(clickResult);
-        aiTurn(aiBoard, playerBoard, aiPlayer, player);
+        let winCheck = checkWin(player, aiBoard, playerBoard, aiPlayer);
+        if (winCheck != null) {
+          winRender(winCheck, aiBoard, playerBoard);
+          return;
+        }
+        setTimeout(() => {
+          aiTurn(aiBoard, playerBoard, aiPlayer, player);
+        }, 2000);
       }
       updateMessage(clickResult);
+      updateAIBoard(aiBoard);
     });
   });
 };
 
 const aiTurn = (aiBoard, playerBoard, aiPlayer, player) => {
   updateMessage(`${aiPlayer.name} is aiming...`);
+  updateMColor("red");
   setTimeout(() => {
     let message = aiPlayer.aiTurn(playerBoard);
     updateMessage(message);
     updateBoard(aiBoard, playerBoard);
-    playerTurn(player, aiBoard, playerBoard, aiPlayer);
-  }, 1000);
+    setTimeout(() => {
+      playerTurn(player, aiBoard, playerBoard, aiPlayer);
+    }, 2000);
+  }, 3000);
 };
 
 export { playerTurn };
