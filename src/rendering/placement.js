@@ -30,6 +30,7 @@ const playerPlacement = (ships, playerBoard, aiBoard, playerPerson) => {
     let sqDiv = document.getElementById(`P:${sq.squareID}`);
 
     sqDiv.addEventListener("mouseenter", (event) => {
+      sqDiv.style.cursor = "pointer";
       let highlight = [];
       highlight = [];
       highlight.push(sqDiv);
