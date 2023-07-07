@@ -55,6 +55,15 @@ const updateBoard = (aiBoard, playerBoard) => {
       sqDiv.style.backgroundColor = "";
     }
   });
+
+  aiBoard.board.forEach((sq) => {
+    let sqDiv = document.getElementById(`AI:${sq.squareID}`);
+
+    if (sq.revealed) {
+      if (sq.hitMiss) sqDiv.style.backgroundColor = "red";
+      else sqDiv.style.backgroundColor = "";
+    } else sqDiv.style.backgroundColor = "darkgrey";
+  });
 };
 
 const softResetBoard = (aiBoard, playerBoard) => {

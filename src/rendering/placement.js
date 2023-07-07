@@ -1,4 +1,5 @@
 import { updateBoard, softResetBoard } from "./renderpage";
+import { playerTurn } from "../gameLoop";
 
 //This function removes the rotation button event listener in order to update it.
 const rotationRemove = (shipPlace) => {
@@ -19,11 +20,12 @@ const placementRotation = (ships, shipPlace) => {
   });
 };
 
-const playerPlacement = (ships, playerBoard, aiBoard) => {
+const playerPlacement = (ships, playerBoard, aiBoard, playerPerson) => {
   let shipPlace = 0;
 
   placementRotation(ships, shipPlace);
 
+  //Placement validity hover colors.
   playerBoard.board.forEach((sq) => {
     let sqDiv = document.getElementById(`P:${sq.squareID}`);
 
@@ -109,6 +111,7 @@ const playerPlacement = (ships, playerBoard, aiBoard) => {
         rotationRemove(shipPlace);
         document.getElementById("rotateButton").remove();
         softResetBoard(aiBoard, playerBoard);
+        playerTurn(playerPerson, aiBoard, playerBoard);
       }
     });
   });
