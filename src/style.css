@@ -14,8 +14,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    height: 100lvh;
+    justify-content: space-between;
+    min-height: 100lvh;
     width: 100%;
 }
 
@@ -25,8 +25,14 @@ body {
     text-shadow: 2px 2px 5px black;
     font-size: 45px;
     margin-top: 35px;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
     height: 50px;
+}
+
+@media screen and (max-width: 600px) {
+    #header {
+        margin-top: 10px;
+    }
 }
 
 #game {
