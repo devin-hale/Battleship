@@ -58,7 +58,7 @@ const updateBoard = (aiBoard, playerBoard) => {
     if (sq.occupied) {
       sqDiv.style.backgroundColor = "green";
       if (sq.hitMiss) sqDiv.style.backgroundColor = "orange";
-      if (sq.shipLink.isSunk) gameSquare.style.backgroundColor = "red";
+      if (sq.shipLink.isSunk) sqDiv.style.backgroundColor = "red";
     } else if (sq.hitMiss == false)
       sqDiv.style.backgroundColor = "rgba(255, 143, 143, 0.336)";
     else if (sq.hitMiss == null) sqDiv.style.backgroundColor = "";
